@@ -1,0 +1,56 @@
+---
+spring:
+  profiles: test
+server:
+  port: 8002
+  context-path: /
+  
+---
+spring:
+  profiles: production
+server:
+  port: 8083
+  context-path: /mazhai
+---
+#资源配置
+spring:
+  messages:
+    basename: i18n/Message,i18n/Pages
+    
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource            #配置我们要使用配置源的类型
+    driver-class-name: org.gjt.mm.mysql.Driver              #配置Mysql的驱动类
+    url: jdbc:mysql://mysql-server:3306/springboot8002       #配置数据库连接
+    username: root
+    password: 123456
+    filters: stat,wall,log4j                                #druid监控
+    dbcp2:                                                  #配置数据库连接池的配置
+      min-idle: 5                                           #数据库连接池的最小连接数
+      initial-size: 5                                       #初始化连接数
+      max-idle: 5                                           #最大连接数
+      max-wait-millis: 200                                  #超时最长时间的等待
+      test-while-idle: true
+      test-on-return: false
+  profiles:
+    active:
+    - test
+  application:
+    name: microcloud-service-dept
+info:
+  app.name: microcloud-service
+  company.name: www.btw.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        #mybatis配置文件所在路径
+  type-aliases-package: org.springboot.firest.vo            #定义所有别名所在包
+  mapper-locations:
+  - classpath:mybatis/mapper/**/*.xml                       #所有mapper所在文件目录
+eureka:
+  client:                                                   #eureka注册
+    service-url:
+      defaultZone: http://eureka-7001.com:7001/eureka,http://eureka-7002.com:7002/eureka,http://eureka-7003.com:7003/eureka
+  instance:
+    instance-id: myservice-server-8002.com
+    prefer-ip-address: true
+      
