@@ -1,16 +1,9 @@
 ---
 spring:
-  profiles: test
-server:
-  port: 8002
-  context-path: /
-  
+  profiles: test  
 ---
 spring:
   profiles: production
-server:
-  port: 8083
-  context-path: /mazhai
 ---
 #资源配置
 spring:
@@ -34,8 +27,6 @@ spring:
   profiles:
     active:
     - test
-  application:
-    name: microcloud-service-dept
 info:
   app.name: microcloud-service
   company.name: www.btw.com
